@@ -38,12 +38,30 @@ p{text-align:center;font-size:1.1em;max-width:90%;}
   z-index:9999;
   flex-direction:column;
 }
+/* Modal ajustado para mobile e desktop */
 .modal img {
-  max-width:90%;
-  max-height:80%;
-  border-radius:15px;
-  transition:opacity 0.5s;
-  opacity:0;
+  max-width: 95%;      /* ocupa quase toda a largura da tela */
+  max-height: 90vh;    /* altura máxima em relação à tela */
+  border-radius: 15px;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+/* Botões do modal também ficam proporcionais */
+.modal-close, .modal-nav {
+  padding: 8px 12px;      /* menor padding para mobile */
+  font-size: 1.5em;       /* ajusta em telas grandes se quiser */
+}
+
+/* Media queries para telas maiores */
+@media (min-width: 768px) {
+  .modal img {
+    max-width: 60%;       /* não ocupa toda a tela em desktop */
+    max-height: 80vh;
+  }
+  .carousel, .card, .quiz {
+    max-width: 600px;     /* aumenta elementos no desktop */
+  }
 }
 .modal-close, .modal-nav {
   position:absolute;
