@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para você, amor ❤️</title>
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:20px 10px;
+  overflow-x:hidden;
+}
+
+h1{color:#ff6b81;text-align:center;margin-bottom:10px;font-size:1.5em;}
+p{text-align:center;font-size:1.1em;max-width:90%;}
+.card{background:white;padding:20px;border-radius:20px;text-align:center;box-shadow:0 10px 20px rgba(0,0,0,0.2);margin-bottom:30px;width:100%;max-width:350px;}
+
+.carousel{position:relative;width:100%;max-width:350px;height:200px;overflow:hidden;border-radius:15px;margin-bottom:30px;box-shadow:0 5px 15px rgba(0,0,0,0.2);z-index:1;}
+.carousel img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;opacity:0;transform:scale(0.95);transition:opacity 0.5s, transform 0.5s;cursor:pointer;}
+.carousel img.active{opacity:1;transform:scale(1);}
+.carousel-buttons{display:flex;justify-content:space-between;position:absolute;width:100%;top:50%;transform:translateY(-50%);padding:0 10px;box-sizing:border-box;z-index:2;}
+.carousel-buttons button{background:rgba(255,255,255,0.7);border:none;font-size:1.5em;cursor:pointer;border-radius:50%;width:40px;height:40px;line-height:35px;text-align:center;}
+
+/* Modal */
+.modal {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  flex-direction:column;
+}
+/* Modal ajustado para mobile e desktop */
+.modal img {
+  max-width: 95%;      /* ocupa quase toda a largura da tela */
+  max-height: 90vh;    /* altura máxima em relação à tela */
+  border-radius: 15px;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+/* Botões do modal também ficam proporcionais */
+.modal-close, .modal-nav {
+  padding: 8px 12px;      /* menor padding para mobile */
+  font-size: 1.5em;       /* ajusta em telas grandes se quiser */
+}
+
+/* Media queries para telas maiores */
+@media (min-width: 768px) {
+  .modal img {
+    max-width: 60%;       /* não ocupa toda a tela em desktop */
+    max-height: 80vh;
+  }
+  .carousel, .card, .quiz {
+    max-width: 600px;     /* aumenta elementos no desktop */
+  }
+}
+.modal-close, .modal-nav {
+  position:absolute;
+  background:#ff6b81;
+  color:white;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  z-index:10000;
+}
+.modal-close { top:20px; right:20px; padding:10px 15px; font-size:1em; }
+.modal-nav { top:50%; transform:translateY(-50%); font-size:2em; padding:10px 15px; }
+.modal-prev { left:10px; }
+.modal-next { right:10px; }
+#modalCounter { position:absolute; top:20px; left:50%; transform:translateX(-50%); color:white; font-size:1em; z-index:10000; }
+
+/* Hearts/Flowers animation */
+#heartsContainer {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0;
+}
+#heartsContainer div{position:absolute;}
+
+/* Quiz */
+.quiz{background:white;padding:20px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.2);margin-bottom:30px;width:100%;max-width:400px;position:relative;z-index:2;}
+.quiz button{margin:5px; padding:10px 15px; border:none; border-radius:10px; cursor:pointer; background:#ff6b81;color:white;font-weight:bold;transition:0.3s;}
+.quiz button.correct{background:#2FB125;}
+.quiz button.wrong{background:red;}
+.quiz p{margin-bottom:10px;}
+#scoreDisplay{position:fixed;top:500px;right:20px;background:rgba(255,255,255,0.8);padding:10px 15px;border-radius:20px;font-weight:bold;z-index:3;}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Te amo, Steffany❤️</h1>
+  <p>Você ilumina meus dias e me faz sorrir sempre. Obrigado por existir e ser tão incrível!</p>
+</div>
+
+<p>Clica pra abrir as Imagens lov</p>
+<div class="carousel">
+  <img src="img/img1.png" class="active">
+  <img src="img/img2.jpg">
+  <img src="img/img3.jpg">
+  <img src="img/img4.webp">
+  <img src="img/img5.webp">
+  <img src="img/img6.webp">
+  <img src="img/img7.webp">
+  <img src="img/img8.webp">
+  <img src="img/img9.webp">
+  <img src="img/img10.webp">
+  <img src="img/img11.webp">
+  <div class="carousel-buttons">
+    <button onclick="prevSlide()">&#10094;</button>
+    <button onclick="nextSlide()">&#10095;</button>
+  </div>
+</div>
+
+<div class="modal" id="lightboxModal">
+  <button class="modal-close" onclick="closeModal()">Fechar</button>
+  <button class="modal-nav modal-prev" onclick="prevModal()">&#10094;</button>
+  <img id="modalImage">
+  <button class="modal-nav modal-next" onclick="nextModal()">&#10095;</button>
+  <p id="modalCounter"></p>
+</div>
+
+<div id="scoreDisplay">Score: 0 / 100</div>
+
+<div class="quiz" id="quizContainer">
+  <p id="quizQuestion"></p>
+  <div id="quizOptions"></div>
+  <p id="quizProgress"></p>
+</div>
+
+<div id="heartsContainer"></div>
+
+<script>
+// Carousel
+let currentIndex = 0;
+const slides = document.querySelectorAll('.carousel img');
+let carouselInterval;
+function showSlide(i){ slides.forEach(img=>img.classList.remove('active')); slides[i].classList.add('active'); }
+function nextSlide(){currentIndex=(currentIndex+1)%slides.length; showSlide(currentIndex);}
+function prevSlide(){currentIndex=(currentIndex-1+slides.length)%slides.length; showSlide(currentIndex);}
+function startCarousel(){carouselInterval=setInterval(nextSlide,4000);}
+function stopCarousel(){clearInterval(carouselInterval);}
+startCarousel();
+
+// Modal
+const modal = document.getElementById('lightboxModal');
+const modalImage = document.getElementById('modalImage');
+const modalCounter = document.getElementById('modalCounter');
+let modalIndex = 0;
+
+function openModal(i){
+  modal.style.display='flex';
+  modalIndex=i;
+  modalImage.src=slides[i].src;
+  modalImage.style.opacity=0;
+  stopCarousel();
+  updateCounter();
+}
+function closeModal(){modal.style.display='none'; startCarousel();}
+function nextModal(){modalIndex=(modalIndex+1)%slides.length; modalImage.src=slides[modalIndex].src; modalImage.style.opacity=0; updateCounter();}
+function prevModal(){modalIndex=(modalIndex-1+slides.length)%slides.length; modalImage.src=slides[modalIndex].src; modalImage.style.opacity=0; updateCounter();}
+function updateCounter(){modalCounter.textContent=`Foto ${modalIndex+1} de ${slides.length}`;}
+modalImage.addEventListener('load',()=>{modalImage.style.opacity=1;});
+modal.addEventListener('click', e=>{if(e.target===modal) closeModal();});
+slides.forEach((img,i)=>{img.addEventListener('click',()=>openModal(i));});
+
+// Quiz embaralhado
+const quizData = [
+  {q:"Qual é a nossa música favorita juntos?", a:["Bohemian Rhapsody","Aliança - Tribalistas","Imagine","Shape of You"], correct:"Aliança - Tribalistas"},
+  {q:"Qual foi o primeiro filme que vimos juntos?", a:["Superman","Mulher-Maravilha","Homem-Aranha","Batman"], correct:"Superman"},
+  {q:"Qual a comida mais diferente que gostamos quando saímos juntos?", a:["Hambúrguer","Tacos","Pizza","Sushi"], correct:"Tacos"},
+  {q:"Qual lugar queremos visitar juntos em breve?", a:["Cinema","Skybar","Praia","Parque"], correct:"Praia"},
+  {q:"Qual atividade fizemos no nosso primeiro encontro?", a:["Ficar em casa","Ir ao cinema","Visitar shopping","Andar no parque"], correct:"Andar no parque"},
+  {q:"Qual é a nossa série ou desenho favorito para ver juntos?", a:["Friends","The Office","Pacificador","Breaking Bad"], correct:"Pacificador"},
+  {q:"Qual sobremesa mais gostamos de dividir?", a:["Chocolate","Sorvete","Bolo","Pudim"], correct:"Sorvete"},
+  {q:"Qual foi o primeiro presente que trocamos?", a:["Flores","Carta de amor","Livro","Chaveiro"], correct:"Carta de amor"},
+  {q:"Qual fruta representa nosso relacionamento?", a:["🍓","🍍","🍎","🍇"], correct:"🍍"},
+  {q:"Qual coisa estranha ou engraçada você sempre faz e me faz rir?", a:["Canta no chuveiro","Conta piadas ruins","Morde meu dedo","Fala alto"], correct:"Morde meu dedo"}
+];
+
+let currentQ=0; let score=0;
+const questionEl=document.getElementById('quizQuestion');
+const optionsEl=document.getElementById('quizOptions');
+const progressEl=document.getElementById('quizProgress');
+const scoreDisplay=document.getElementById('scoreDisplay');
+
+function showQuestion(){
+  if(currentQ>=quizData.length){
+    quizContainer.innerHTML=`<h2>Fim do quiz! Pontuação: ${score}/100</h2>`;
+    return;
+  }
+  const q=quizData[currentQ];
+  questionEl.textContent=q.q;
+  optionsEl.innerHTML='';
+ const shuffledOptions = shuffleArray([...q.a]); // cria uma cópia e embaralha
+shuffledOptions.forEach(opt => {
+  const btn = document.createElement('button');
+  btn.textContent = opt;
+  btn.onclick = () => checkAnswer(opt, btn);
+  optionsEl.appendChild(btn);
+});
+  progressEl.textContent=`Pergunta ${currentQ+1} de ${quizData.length}`;
+  scoreDisplay.textContent=`Score: ${score} / 100`;
+}
+function checkAnswer(sel, btn){
+  const correct=quizData[currentQ].correct;
+  const buttons=optionsEl.querySelectorAll('button');
+  buttons.forEach(b=>b.disabled=true);
+  if(sel===correct){score+=10; btn.classList.add('correct');}
+  else{btn.classList.add('wrong'); buttons.forEach(b=>{if(b.textContent===correct)b.classList.add('correct');});}
+  scoreDisplay.textContent=`Score: ${score} / 100`;
+  setTimeout(()=>{currentQ++; showQuestion();},1000);
+}
+showQuestion();
+
+// Hearts/Girassóis
+function createHeart(){
+  const heart=document.createElement('div');
+  const icons=['❤️','🌻'];
+  heart.textContent=icons[Math.floor(Math.random()*icons.length)];
+  heart.style.left=Math.random()*window.innerWidth+'px';
+  heart.style.fontSize=(10+Math.random()*20)+'px';
+  heart.style.opacity=0.7;
+  heart.style.animation=`fall ${3+Math.random()*3}s linear`;
+  document.getElementById('heartsContainer').appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,500);
+
+// Keyframes para queda
+const styleEl=document.createElement('style');
+styleEl.innerHTML=`@keyframes fall {0%{transform:translateY(-50px);} 100%{transform:translateY(100vh);}}`;
+document.head.appendChild(styleEl);
+
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function checkAnswer(sel, btn){
+  const correct = quizData[currentQ].correct;
+  const buttons = optionsEl.querySelectorAll('button');
+  buttons.forEach(b => b.disabled = true);
+
+  // Animação ao clicar
+  btn.style.transform = 'scale(1.1)';
+  setTimeout(() => { btn.style.transform = 'scale(1)'; }, 300);
+
+  if(sel === correct){
+    score += 10;
+    btn.classList.add('correct');
+
+    // Mostrar feedback de pontos
+    const pointFeedback = document.createElement('div');
+    pointFeedback.textContent = '+10';
+    pointFeedback.style.position = 'absolute';
+    pointFeedback.style.top = scoreDisplay.offsetTop + 'px';
+    pointFeedback.style.left = scoreDisplay.offsetLeft + 'px';
+    pointFeedback.style.fontSize = '1.2em';
+    pointFeedback.style.fontWeight = 'bold';
+    pointFeedback.style.color = '#2FB125';
+    pointFeedback.style.opacity = 1;
+    pointFeedback.style.transition = 'all 1s ease';
+    document.body.appendChild(pointFeedback);
+
+    // Animar para cima e sumir
+    setTimeout(() => {
+      pointFeedback.style.transform = 'translateY(-50px)';
+      pointFeedback.style.opacity = 0;
+    }, 50);
+    setTimeout(() => pointFeedback.remove(), 1050);
+
+  } else {
+    btn.classList.add('wrong');
+    buttons.forEach(b => {
+      if(b.textContent === correct) b.classList.add('correct');
+    });
+  }
+
+  scoreDisplay.textContent = `Score: ${score} / 100`;
+  setTimeout(() => { currentQ++; showQuestion(); }, 1000);
+}
+</script>
+
+</body>
+</html>
