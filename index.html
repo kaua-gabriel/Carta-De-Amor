@@ -44,6 +44,45 @@
     0% {transform:translateY(-50px);}
     100% {transform:translateY(100vh);}
   }
+
+  /* ===== Media Query para telas pequenas ===== */
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.2em;
+  }
+  p {
+    font-size: 1em;
+  }
+  .card {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  .carousel {
+    height: 150px;
+  }
+  .carousel-buttons button {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    line-height: 25px;
+  }
+  .heart {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  #modalImage {
+    max-width: 90%;
+    max-height: 80%;
+  }
+  .modal-nav {
+    font-size: 1.5em;
+    padding: 8px 12px;
+  }
+  .modal-close {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+}
 </style>
 </head>
 <body>
