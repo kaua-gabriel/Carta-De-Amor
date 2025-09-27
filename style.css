@@ -1,0 +1,271 @@
+/* ===== Importar fontes fofinhas ===== */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&family=Pacifico&display=swap');
+
+/* ===== Corpo da página ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif; /* corpo legível */
+  background: linear-gradient(to bottom, #ffeaea, #fad0c4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 10px;
+  overflow-x: hidden;
+}
+
+/* ===== Títulos ===== */
+h1, h2 {
+  font-family: 'Pacifico', cursive; /* títulos fofos */
+  color: #ff6b81;
+  text-align: center;
+}
+h1 { font-size: 1.5em; margin-bottom: 10px; }
+h2 { font-size: 1.3em; margin-bottom: 10px; }
+
+/* ===== Parágrafos ===== */
+p {
+  text-align: center;
+  font-size: 1.1em;
+  max-width: 90%;
+}
+
+/* ===== Cards ===== */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ===== Carousel ===== */
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s, transform 0.5s;
+  cursor: pointer;
+}
+.carousel img.active { opacity: 1; transform: scale(1); }
+.carousel-buttons {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 10px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+.carousel-buttons button {
+  background: rgba(255,255,255,0.7);
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 35px;
+  text-align: center;
+}
+
+/* ===== Modal ===== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+.modal img {
+  max-width: 95%;
+  max-height: 90vh;
+  border-radius: 15px;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+.modal-close, .modal-nav {
+  position: absolute;
+  background: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 10000;
+  padding: 10px 15px;
+}
+.modal-nav { font-size: 2em; top: 50%; transform: translateY(-50%); }
+.modal-prev { left: 10px; }
+.modal-next { right: 10px; }
+#modalCounter { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); color: white; font-size: 1em; z-index: 10000; }
+
+/* ===== Hearts / Girassóis ===== */
+#heartsContainer {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+#heartsContainer div { position: absolute; }
+
+/* ===== Quiz ===== */
+.quiz {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  z-index: 2;
+}
+.quiz button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #ff6b81;
+  color: white;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  transition: 0.3s;
+}
+.quiz button.correct{ background:#2FB125; }
+.quiz button.wrong{ background:red; }
+.quiz p{ margin-bottom: 10px; }
+#scoreDisplay {
+  position: fixed;
+  top: 500px;
+  right: 20px;
+  background: rgba(255,255,255,0.8);
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  z-index: 3;
+}
+
+/* ===== Lista de Tarefas ===== */
+#todoContainer { width: 100%; max-width: 400px; margin-bottom: 30px; }
+#todoForm { display: flex; gap: 10px; margin-bottom: 15px; }
+#todoForm input {
+  flex: 1; padding: 10px;
+  border: 2px solid #ff6b81;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+#todoForm button {
+  background: #ff6b81;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+.todo-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.todo-filters button {
+  background: #fad0c4;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition:0.3s;
+}
+.todo-filters button:hover { background:#ff6b81; color:white; }
+.todo-item {
+  background: #ffeaea;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+.todo-item.done {
+  background: #d6f5d6;
+  text-decoration: line-through;
+  opacity: 0.9;
+}
+.todo-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 5px;
+}
+.todo-actions button {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 0.8em;
+  font-family: Arial, sans-serif;
+}
+.todo-actions .done-btn { background: #2FB125; color:white; }
+.todo-actions .edit-btn { background: #ffc107; color:white; }
+.todo-actions .delete-btn { background: #ff6b81; color:white; }
+
+/* ===== Mascote ===== */
+#todoMascot {
+  font-family: 'Baloo 2', cursive; /* divertido e fofo */
+  text-align: center;
+  margin: 20px auto;
+  font-size: 1.1em;
+  background: rgba(255,255,255,0.7);
+  padding: 8px 15px;
+  border-radius: 15px;
+  max-width: 300px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+/* ===== Responsivo ===== */
+@media (min-width:768px){
+  .carousel, .card, .quiz, #todoContainer { max-width:600px; }
+  .modal img { max-width:60%; max-height:80vh; }
+}
+
+.modal-close, .modal-nav {
+  position:absolute;
+  background:#ff6b81;
+  color:white;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  z-index:10000;
+  padding:10px 15px;
+  font-size:1em;
+}
+.modal-close { top:20px; right:20px; padding:10px 15px; font-size:1em; }

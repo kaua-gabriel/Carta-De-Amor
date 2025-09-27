@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para você, amor ❤️</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h1>Te amo, Steffany❤️</h1>
+  <p>Você ilumina meus dias e me faz sorrir sempre. Obrigado por existir e ser tão incrível!</p>
+</div>
+
+<p>Clica pra abrir as Imagens lov</p>
+<div class="carousel">
+  <img src="img/img1.png" class="active">
+  <img src="img/img2.jpg">
+  <img src="img/img3.jpg">
+  <img src="img/img4.webp">
+  <img src="img/img5.webp">
+  <img src="img/img6.webp">
+  <img src="img/img7.webp">
+  <img src="img/img8.webp">
+  <img src="img/img9.webp">
+  <img src="img/img10.webp">
+  <img src="img/img11.webp">
+  <div class="carousel-buttons">
+    <button onclick="prevSlide()">&#10094;</button>
+    <button onclick="nextSlide()">&#10095;</button>
+  </div>
+</div>
+
+<div class="modal" id="lightboxModal">
+  <button class="modal-close" onclick="closeModal()">Fechar</button>
+  <button class="modal-nav modal-prev" onclick="prevModal()">&#10094;</button>
+  <img id="modalImage">
+  <button class="modal-nav modal-next" onclick="nextModal()">&#10095;</button>
+  <p id="modalCounter"></p>
+</div>
+
+<div id="scoreDisplay">Score: 0 / 100</div>
+
+<div class="quiz" id="quizContainer">
+  <p id="quizQuestion"></p>
+  <div id="quizOptions"></div>
+  <p id="quizProgress"></p>
+</div>
+
+  <!-- Lista de Tarefas -->
+  <div class="card todo-container">
+    <h2>💖 Nossos Planos ✨</h2>
+
+    <!-- Formulário -->
+    <form id="todoForm">
+      <input type="text" id="todoInput" placeholder="Escreva nosso plano..." required>
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <!-- Contador -->
+    <p id="todoCounter">0 concluídas de 0</p>
+
+    <!-- Filtros -->
+    <div class="todo-filters">
+      <button onclick="setFilter('all')">Todas</button>
+      <button onclick="setFilter('pending')">Pendentes</button>
+      <button onclick="setFilter('done')">Concluídas</button>
+    </div>
+
+    <!-- Lista -->
+    <div id="todoList"></div>
+  </div>
+
+  <!-- Mascote com frases fofas -->
+  <div id="todoMascot">💌 Vamos sonhar juntos!</div>
+
+  <!-- Biblioteca de confete -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<div id="heartsContainer"></div>
+<script src="script.js"></script>
+</body>
+</html>
